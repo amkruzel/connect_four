@@ -2,4 +2,6 @@
 
 require_relative 'connect_four'
 
-# game = ConnectFourGame.new
+class OnePlayerGame < ConnectFourGame
+
+end
