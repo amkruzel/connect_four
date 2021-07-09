@@ -1,29 +1,48 @@
 # frozen_string_literal: true
 
 require_relative 'text_display'
-require_relative 'main'
-# require_relative 'one_player_game'
-# require_relative 'two_player_game'
+require_relative 'game_board'
 
 # this is the main class that will call most of the methods
+# #play_game initializes most classes outside this file
+  # -> @game = TwoPlayerGame.new or OnePlayerGame.new
+  # -> @board = GameBoard.new
 class ConnectFourGame
   include TextDisplay
 
-  def initialize
+  def introduction
+    game_title_screen
   end
 
   def play_game
     introduction
-    if player_input == 1
-      puts 'Do you want to play against the computer or against a friend?'
+    if player_input(1, 2) == 1
+      num_players_query
       new_game
     else
       load_game
     end
+    game_loop
   end
 
-  def introduction
-    game_title_screen
+  def game_loop
+    loop do
+      @board.display_board(@cur_board)
+      take_turn(@game.current_player)
+      # ask cur_player where they want to go
+      # also give option to save game
+    end
+  end
+
+  def take_turn(current_player)
+    loop do
+      ask_for_square
+      error_message = 'That is an invalid column! Pick a different column.'
+      sqr = player_input(1, 7)
+      @board.update(sqr, current_player.token) if @board.valid_sqr(sqr - 1)
+
+      puts error_message
+    end
   end
 
   def player_input(min, max)
@@ -52,6 +71,7 @@ class ConnectFourGame
   end
 
   def new_game
-    player_input(1, 2) == 1 ? TwoPlayerGame.new : OnePlayerGame.new
+    @game = player_input(1, 2) == 1 ? TwoPlayerGame.new : OnePlayerGame.new
+    @board = GameBoard.new
   end
 end

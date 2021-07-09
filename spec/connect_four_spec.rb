@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
-require_relative '../lib/main'
+# require_relative '../lib/main'
 require_relative '../lib/connect_four'
+require_relative '../lib/game_board'
+require_relative '../lib/board_display'
 require_relative '../lib/one_player_game'
 require_relative '../lib/two_player_game'
 
@@ -103,7 +105,8 @@ describe ConnectFourGame do
   end
 
   describe '#new_game' do
-    # this method will find out if one or two player game and call respective methods from class
+    # this method will find out if one or two player game and create a new instance of the respective class
+    # also will make a new GameBoard object
     subject(:new_game) { described_class.new }
 
     context 'when it will be a two player game' do
@@ -112,7 +115,7 @@ describe ConnectFourGame do
       end
 
       it 'creates a new instance of TwoPlayerGame' do
-        expect(TwoPlayerGame).to receive(:new)
+        expect(TwoPlayerGame).to receive(:new).once
         new_game.new_game
       end
     end
@@ -122,8 +125,20 @@ describe ConnectFourGame do
         allow(new_game).to receive(:gets).and_return('2')
       end
 
-      it 'creates a new instance of TwoPlayerGame' do
-        expect(OnePlayerGame).to receive(:new)
+      it 'creates a new instance of OnePlayerGame' do
+        expect(OnePlayerGame).to receive(:new).once
+        new_game.new_game
+      end
+    end
+
+    context 'creates a new GameBoard object' do
+      before do
+        allow(new_game).to receive(:gets).and_return('1')
+        allow(TwoPlayerGame).to receive(:new).once
+      end
+
+      it 'GameBoard receives :new method' do
+        expect(GameBoard).to receive(:new).once
         new_game.new_game
       end
     end
@@ -131,5 +146,76 @@ describe ConnectFourGame do
 
   describe '#load_game' do
     # TODO
+  end
+
+  describe '#player_name_input' do
+    # this method is used to verify that the name is 40 characters (this is arbitrary) or less in length
+    subject(:name_input) { described_class.new }
+
+    context 'when receiving valid input' do
+      before do
+        valid_input = 'alexander'
+        allow(name_input).to receive(:gets).and_return(valid_input)
+      end
+
+      it 'does not complete loop - returns valid input' do
+        error_message = 'Invalid input - name must be between 1 and 40 characters in length.'
+        expect(name_input).not_to receive(:puts).with(error_message)
+        name_input.player_name_input
+      end
+    end
+
+    context 'when receiving invalid input once, then valid input' do
+      before do
+        invalid_input = 'christopher____dhfasbdbfhdasfbhjadksbfcjlwaneiocnwdjaklsfvcawedcasFFDSAFAS'
+        valid_input = 'bo'
+        allow(name_input).to receive(:gets).and_return(invalid_input, valid_input)
+      end
+
+      it 'loops once and gives error message, then returns valid input' do
+        error_message = 'Invalid input - name must be between 1 and 40 characters in length.'
+        expect(name_input).to receive(:puts).with(error_message).exactly(1).time
+        name_input.player_name_input
+      end
+    end
+
+    context 'when input is exactly 40 characters' do
+      before do
+        valid_input = 'ksbfcjlwaneiocnwdjaklsfvcawedcasFFDSAFAS'
+        allow(name_input).to receive(:gets).and_return(valid_input)
+      end
+
+      it 'does not complete loop - returns valid input' do
+        error_message = 'Invalid input - name must be between 1 and 40 characters in length.'
+        expect(name_input).not_to receive(:puts).with(error_message)
+        name_input.player_name_input
+      end
+    end
+
+    context 'when input is 0 characters, then 5 characters' do
+      before do
+        invalid_input = ''
+        valid_input = '3alex'
+        allow(name_input).to receive(:gets).and_return(invalid_input, valid_input)
+      end
+
+      it 'loops once and gives error message once, then returns valid input' do
+        error_message = 'Invalid input - name must be between 1 and 40 characters in length.'
+        expect(name_input).to receive(:puts).with(error_message).exactly(1).times
+        name_input.player_name_input
+      end
+    end
+  end
+
+  describe '#game_loop' do
+    # Script containing other methods
+  end
+
+  describe '#display_board' do
+    # this method is actually in GameBoard class so it is tested there
+  end
+
+  describe '#take_turn' do
+    # was tested and then refactored
   end
 end
