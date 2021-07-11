@@ -113,12 +113,11 @@ describe GameBoard do
         3.times { |n| board_diag_winner.update(n + 2, n == 0 ? w_token : b_token) }
         2.times { |n| board_diag_winner.update(n + 3, n == 0 ? w_token : blank) }
         board_diag_winner.update(4, w_token)
-
-        board_diag_winner.check_for_winner
       end
 
-      xit 'returns true' do
-        t_or_f = board_diag_winner.check_for_winner
+      it 'returns true' do
+        w_token = '⚪'
+        t_or_f = board_diag_winner.check_for_winner(w_token)
         expect(t_or_f).to eq true
       end
     end
@@ -130,8 +129,9 @@ describe GameBoard do
         no_win_board.update(2, 'x')
       end
 
-      xit 'returns false' do
-        t_or_f = no_win_board.check_for_winner
+      it 'returns false' do
+        w_token = '⚪'
+        t_or_f = no_win_board.check_for_winner(w_token)
         expect(t_or_f).to eq false
       end
     end
@@ -146,8 +146,9 @@ describe GameBoard do
         4.times { |n| not_same_color_four.update(n + 1, n.even? ? w_token : b_token) }
       end
 
-      xit 'returns false' do
-        t_or_f = not_same_color_four.check_for_winner
+      it 'returns false' do
+        w_token = '⚪'
+        t_or_f = not_same_color_four.check_for_winner(w_token)
         expect(t_or_f).to eq false
       end
     end
