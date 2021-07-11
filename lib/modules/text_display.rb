@@ -63,7 +63,7 @@ module TextDisplay
 
   def pick_sqr
     <<~PICK_SQR
-      puts "Where do you want to go, #{current_player.name}?"
+      puts "Where do you want to go, #{@game.current_player.name}?"
       [\e[91;1m1\e[0m - \e[91;1m7\e[0m]
     PICK_SQR
   end

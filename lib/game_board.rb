@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
-require_relative 'board_display'
+require_relative 'modules/board_display'
+require_relative 'modules/inputs'
 
 # this class contains current board state and methods to manipulate board state
 class GameBoard
   include BoardDisplay
+  include Inputs
 
   attr_reader :cur_board
 
@@ -15,7 +17,7 @@ class GameBoard
   def update(sqr, token)
     sqr -= 1 # array is 0-indexed
 
-    @cur_board.reverse_each do |row|
+    cur_board.reverse_each do |row|
       if row[sqr] == ' '
         row[sqr] = token
         break
@@ -24,11 +26,20 @@ class GameBoard
   end
 
   def valid_sqr(sqr)
-    return false if @cur_board[0][sqr] != ' '
+    return false if cur_board[0][sqr] != ' '
 
     true
   end
 
-  def check_for_winner
+  def check_for_winner(token)
+    # horizontal winner
+    cur_board.each do |row|
+      4.times { |n| return true if row[n - 1, 4].all?(token) }
+    end
+
+    #vertical winner
+    no_in_row = 0
+    7.times do |n|
+      
   end
 end

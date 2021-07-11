@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-# require_relative '../lib/main'
+require_relative '../lib/moduls/board_display'
+require_relative '../lib/moduls/inputs'
 require_relative '../lib/connect_four'
 require_relative '../lib/game_board'
-require_relative '../lib/board_display'
 require_relative '../lib/one_player_game'
 require_relative '../lib/two_player_game'
 
@@ -216,6 +216,6 @@ describe ConnectFourGame do
   end
 
   describe '#take_turn' do
-    # was tested and then refactored
+    # not necessary to test
   end
 end
