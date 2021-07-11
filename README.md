@@ -14,4 +14,4 @@ This is a [Connect Four](https://en.wikipedia.org/wiki/Connect_Four) game which 
 The purpose of this project was to practice programming using the test-driven development process.
 
 ## License
-This project is licensed under the MIT License - see the LICENSE.md file for details
+This project is licensed under the MIT License - see the LICENSE.txt file for details
