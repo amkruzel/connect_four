@@ -38,7 +38,7 @@ class GameBoard
       4.times { |n| return true if row[n - 1, 4].all?(token) }
       # vertical/diagonal
       row.each_with_index do |sqr, col_index|
-        return true if sqr == token && (vert_row(row_index, col_index, token) || diag_row(row_index, col_index, token))
+        return true if row_index < 3 && sqr == token && vert_diag_row(row_index, col_index, token)
       end
     end
     false
@@ -46,18 +46,15 @@ class GameBoard
 
   # helper function for #check_for_winner
   # if a square has token, checks 3 lower squares
-  def vert_row(row_index, col_index, token)
-    3.times do |n|
-      false if cur_board[row_index + n + 1].nil? || cur_board.nil? || cur_board[row_index + n + 1][col_index] != token
+  def vert_diag_row(row_index, col_index, token)
+    if cur_board[row_index + 1][col_index] == token
+      cur_board[row_index + 2][col_index] == token && cur_board[row_index + 3][col_index] == token
+    elsif cur_board[row_index + 1][col_index - 1] == token
+      cur_board[row_index + 2][col_index - 2] == token && cur_board[row_index + 3][col_index - 3] == token
+    elsif cur_board[row_index + 1][col_index + 1] == token
+      cur_board[row_index + 2][col_index + 2] == token && cur_board[row_index + 3][col_index + 3] == token
+    else
+      false
     end
-    true
   end
-
-  # helper function for #check_for_winner
-  # if a square has token, checks 3 lower rows diagonally in both directions
-  def diag_row(row_index, col_index, token)
-    3.times { |n| false if cur_board[row_index + n + 1][col_index - n - 1] != token }
-    3.times { |n| false if cur_board[row_index + n + 1][col_index + n + 1] != token }
-  end
-  true
 end
