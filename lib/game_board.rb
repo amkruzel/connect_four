@@ -45,7 +45,7 @@ class GameBoard
   end
 
   # helper function for #check_for_winner
-  # if a square has token, checks 3 lower squares
+  # if a square has token, checks 3 lower squares, diag. to right, and diag. to left
   def vert_diag_row(row_index, col_index, token)
     if cur_board[row_index + 1][col_index] == token
       cur_board[row_index + 2][col_index] == token && cur_board[row_index + 3][col_index] == token

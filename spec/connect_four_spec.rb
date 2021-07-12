@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative '../lib/moduls/board_display'
-require_relative '../lib/moduls/inputs'
+require_relative '../lib/modules/board_display'
+require_relative '../lib/modules/inputs'
 require_relative '../lib/connect_four'
 require_relative '../lib/game_board'
 require_relative '../lib/one_player_game'
@@ -217,5 +217,9 @@ describe ConnectFourGame do
 
   describe '#take_turn' do
     # not necessary to test
+  end
+
+  describe '#next_turn' do
+    # unnecessary to test - simple ternary operation
   end
 end

@@ -18,6 +18,10 @@ module TextDisplay
     puts pick_sqr
   end
 
+  def win
+    puts winning_message
+  end
+
   private
 
   def title
@@ -63,8 +67,28 @@ module TextDisplay
 
   def pick_sqr
     <<~PICK_SQR
-      puts "Where do you want to go, #{@game.current_player.name}?"
+
+      Where do you want to go, #{@game.current_player.name}?
       [\e[91;1m1\e[0m - \e[91;1m7\e[0m]
+
     PICK_SQR
+  end
+
+  def winning_message
+    <<~WIN
+
+      Congratulations, #{@game.current_player.name}! You are the winner!
+
+    WIN
+  end
+
+  def game_over_prompts
+    <<~GAME_OVER
+
+      Do you want to play again?
+      [\e[91;1m1\e[0m] - Play again
+      [\e[91;1m2\e[0m] - Exit game
+
+    GAME_OVER
   end
 end

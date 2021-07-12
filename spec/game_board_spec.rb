@@ -15,8 +15,7 @@ describe GameBoard do
     subject(:board_display) { described_class.new }
 
     it 'puts the @cur_board arr' do
-      board = board_display.cur_board
-      expect(board_display).to receive(:puts).with(board)
+      expect(board_display).to receive(:puts)
       board_display.display_board
     end
   end

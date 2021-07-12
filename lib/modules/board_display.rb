@@ -3,7 +3,7 @@
 # this module contains information and methods to 'draw' the board
 module BoardDisplay
   def display_board
-    puts @cur_board
+    puts board(cur_board)
   end
 
   private

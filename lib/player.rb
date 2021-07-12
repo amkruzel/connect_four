@@ -5,8 +5,8 @@
 class Player
   attr_reader :name, :token
 
-  $black_token = '⚫'
-  $white_token = '⚪'
+  $p1_token = "\e[31;1m◉\e[0m"
+  $p2_token = "\e[34;1m◉\e[0m"
 
   def initialize(name, token, game)
     @name = name
