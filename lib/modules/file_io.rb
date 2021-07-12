@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
-module FileIO
+require 'yaml'
 
+# methods to save/load games
+module FileIO
+  def save_game
+  end
 end

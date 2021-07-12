@@ -35,7 +35,7 @@ class GameBoard
     # horizontal & vertical winner winner
     cur_board.each_with_index do |row, row_index|
       # horizontal
-      4.times { |n| return true if row[n - 1, 4].all?(token) }
+      4.times { |n| return true if row[n - 1, 4].size == 4 && row[n - 1, 4].all?(token) }
       # vertical/diagonal
       row.each_with_index do |sqr, col_index|
         return true if row_index < 3 && sqr == token && vert_diag_row(row_index, col_index, token)
